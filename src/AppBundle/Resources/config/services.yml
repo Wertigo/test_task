@@ -1,0 +1,47 @@
+services:
+    app.form.registration:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    app.buy_order_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - AppBundle\Entity\BuyOrder
+
+    app.sell_to_buy_order_comparer:
+        class: AppBundle\Service\SellToBuyOrderFinder
+        arguments:
+            - "@app.buy_order_repository"
+
+    app.sell_order_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - AppBundle\Entity\SellOrder
+
+    app.buy_to_sell_order_finder:
+        class: AppBundle\Service\BuyToSellOrderFinder
+        arguments:
+            - "@app.sell_order_repository"
+
+    app.email_noficator:
+        class: AppBundle\Service\EmailNotificator
+        arguments:
+            - "@mailer"
+            - "%app_email_from%"
+            - "%app_email_notify_subject%"
+
+    app.notificator:
+        class: AppBundle\Service\NotificationService
+        arguments:
+            - "@app.buy_to_sell_order_finder"
+            - "@old_sound_rabbit_mq.send_notification_producer"
+            - "%use_rabbit_mq%"
+            - "@app.email_noficator"
+
+    app.consumer.send_notification:
+        class: AppBundle\Consumer\SendNotification
+        arguments:
+            - "@app.email_noficator"

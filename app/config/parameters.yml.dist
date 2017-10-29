@@ -1,0 +1,18 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: database
+    database_user: root
+    database_password: password
+    mailer_transport: smtp
+    mailer_host: host
+    mailer_user: user
+    mailer_password: password
+    secret: secret
+    rabbit_mq_host: host
+    rabbit_mq_port: port
+    rabbit_mq_user: user
+    rabbit_mq_password: password

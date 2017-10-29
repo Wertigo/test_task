@@ -1,0 +1,20 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+</div>
+
+<div>
+    <h2>My orders</h2>
+    {% if app.user.isClient() %}
+        {% include 'AppBundle:Profile:buy_orders.html.twig' with {'orders': app.user.getBuyOrders()} %}
+    {% elseif app.user.isSeller()  %}
+        {% include 'AppBundle:Profile:sell_orders.html.twig' with {'orders': app.user.getSellOrders()} %}
+    {% endif %}
+
+    {% if app.user.isSeller() %}
+        <h2>Buy orders satisfying my sell orders</h2>
+        {% include 'AppBundle:Profile:buy_orders.html.twig' with {'orders': comparedBuyOrders, 'withUser': true} %}
+    {% endif %}
+</div>

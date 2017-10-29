@@ -1,0 +1,33 @@
+{% if withUser is not defined  %}
+    {% set withUser = false %}
+{% endif %}
+
+{% if orders is not empty %}
+    <p>Buy orders</p>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>id</th>
+            <th>Product</th>
+            <th>Brand</th>
+            <th>Min price</th>
+            <th>Max price</th>
+            {% if withUser %}
+                <th>User</th>
+            {% endif %}
+        </tr>
+        {% for order in orders %}
+            <tr>
+                <th>{{ order.id }}</th>
+                <th>{{ order.product }}</th>
+                <th>{{ order.brand }}</th>
+                <th>{{ order.minPrice }}</th>
+                <th>{{ order.maxPrice }}</th>
+                {% if withUser %}
+                    <th>{{ order.user.getEmail() }}</th>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No buy orders</p>
+{% endif %}

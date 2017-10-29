@@ -1,0 +1,15 @@
+home:
+    path:     /
+    defaults: { _controller: AppBundle:Default:index }
+
+create_buy_order:
+    path:     /create-buy-order
+    defaults: { _controller: AppBundle:BuyOrder:create }
+
+create_sell_order:
+    path:     /create-sell-order
+    defaults: { _controller: AppBundle:SellOrder:create }
+
+fos_user_profile_show:
+    path:     /profile
+    defaults: { _controller: AppBundle:Profile:show }

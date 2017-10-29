@@ -1,0 +1,4 @@
+parameters:
+    app_email_from: kdswto@gmail.com
+    app_email_notify_subject: "For your send order find buy order"
+    use_rabbit_mq: true
